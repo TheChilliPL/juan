@@ -1,0 +1,114 @@
+{
+    "emoji": {
+        "warning": "⚠️",
+        "error": "❌",
+        "success": "✅"
+    },
+    "messages": {
+        "vcmove": {
+            "start": "Moving members…",
+            "no_members": "$[emoji.warning] No members found in the voice channel.",
+            "failure": "$[emoji.error] Failed to move members to the voice channel.",
+            "success": "$[emoji.success] Successfully moved members to the voice channel.",
+            "partial": "$[emoji.warning] Successfully moved **${MOVED}/${TOTAL}** members to the voice channel."
+        },
+        "remove-category": {
+            "confirmation": {
+                "question_countdown": "$[emoji.warning] Are you **absolutely** sure you want to remove all ${COUNT} channels in category ${CATEGORY}?\n**THIS ACTION IS IRREVERSIBLE!**\n\nThe button will unlock ${BUTTON_UNLOCK_TIMESTAMP}.",
+                "question": "$[emoji.warning] Are you **absolutely** sure you want to remove all ${COUNT} channels in category ${CATEGORY}?\n**THIS ACTION IS IRREVERSIBLE!**\n\nClick the button below to confirm or delete this message.",
+                "yes": "Yes, delete the category."
+            },
+            "start": "Removing channels…",
+            "failure": "$[emoji.error] Failed to remove channels.",
+            "success": "$[emoji.success] Successfully removed channels."
+        },
+        "timestamp": {
+            "parse_error": "$[emoji.error] Failed to parse timestamp.",
+            "multiple_timestamps_unsupported": "$[emoji.error] Multiple timestamps are not supported.",
+            "range_unsupported": "$[emoji.error] Ranges are not supported ~~yet~~.",
+            "result": "$[emoji.success] You can copy the timestamps for ${TIMESTAMP} below.",
+            "format": "`${TIMESTAMP}`—${STYLE}: ${TIMESTAMP}",
+            "styles": {
+                "short_time": "Short time",
+                "long_time": "Long time",
+                "short_date": "Short date",
+                "long_date": "Long date",
+                "short_date_time": "Short date and time",
+                "long_date_time": "Long date and time",
+                "relative_time": "Relative time"
+            },
+            "timezone_unknown": "$[emoji.warning] Timezone is not certain. Try specifying it with your query. Assumed offset: ${OFFSET}."
+        },
+        "deepl": {
+            "invalid_key": "$[emoji.error] Invalid DeepL API key. Authentication failed.",
+            "usage": "The current usage of the API for the configured API key is:\n```\n${USAGE}\n```",
+            "no_key": "$[emoji.error] No DeepL API key currently set. Server managers can set one with `/deepl-config <key>`. To get an API key, sign up on <https://www.deepl.com/pro-api>!",
+            "key_set": "$[emoji.success] DeepL API key set and verified successfully.",
+            "translation": "$[emoji.success] Successfully translated the text:\n```\n${TRANSLATION}\n```"
+        }
+    },
+    "commands": {
+        "vcmove": {
+            "name": "vcmove",
+            "description": "Moves members to the voice channel.",
+            "options": {
+                "from": {
+                    "name": "from",
+                    "description": "The voice channel to move members from."
+                },
+                "to": {
+                    "name": "to",
+                    "description": "The voice channel to move members to."
+                }
+            }
+        },
+        "remove-category": {
+            "name": "remove-category",
+            "description": "Removes every single channel in a category.",
+            "options": {
+                "category": {
+                    "name": "category",
+                    "description": "The category to remove."
+                }
+            }
+        },
+        "timestamp": {
+            "name": "timestamp",
+            "description": "Returns discord timestamps to copy and paste.",
+            "options": {
+                "timestamp": {
+                    "name": "timestamp",
+                    "description": "The timestamp to convert."
+                }
+            }
+        },
+        "deepl": {
+            "name": "deepl",
+            "description": "Translates text using the DeepL API.",
+            "options": {
+                "text": {
+                    "name": "text",
+                    "description": "The text to translate."
+                },
+                "source": {
+                    "name": "source",
+                    "description": "The source language. By default, automatic detection is used."
+                },
+                "target": {
+                    "name": "target",
+                    "description": "The target language."
+                }
+            }
+        },
+        "deepl-config": {
+            "name": "deepl-config",
+            "description": "Sets the DeepL API key or checks the limits.",
+            "options": {
+                "key": {
+                    "name": "key",
+                    "description": "The DeepL API key."
+                }
+            }
+        }
+    }
+}

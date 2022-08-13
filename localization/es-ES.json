@@ -1,0 +1,109 @@
+{
+    "messages": {
+        "vcmove": {
+            "start": "Moviendo miembros…",
+            "no_members": "$[emoji.warning] No se encontró ningunos miembros para mover.",
+            "failure": "$[emoji.error] Se falló al mover los miembros al canal.",
+            "success": "$[emoji.success] Se logró mover los miembros al canal.",
+            "partial": "$[emoji.warning] Se logró mover **${MOVED}/${TOTAL}** miembros al canal."
+        },
+        "remove-category": {
+            "confirmation": {
+                "question_countdown": "$[emoji.warning] ¿Estás **absolutamente** seguro de que quieres eliminar todos los ${COUNT} canales de la categoría ${CATEGORY}?\n**ESTA ACCIÓN ES IRREVERSIBLE!**\n\nEl botón se va a desbloquear ${BUTTON_UNLOCK_TIMESTAMP}.",
+                "question": "$[emoji.warning] ¿Estás **absolutamente** seguro de que quieres eliminar todos los ${COUNT} canales de la categoría ${CATEGORY}?\n**ESTA ACCIÓN ES IRREVERSIBLE!**\n\nPulsa el botón para confirmar o borra este mensaje.",
+                "yes": "Sí, eliminar la categoría."
+            },
+            "start": "Eliminando canales…",
+            "failure": "$[emoji.error] Se falló al eliminar los canales.",
+            "success": "$[emoji.success] Se logró eliminar los canales."
+        },
+        "timestamp": {
+            "parse_error": "$[emoji.error] Se falló al parsear la marca de fecha.",
+            "multiple_timestamps_unsupported": "$[emoji.error] No se soporte múltiples marcas de fecha.",
+            "range_unsupported": "$[emoji.error] No se soporte los rangos de marcas de fecha.",
+            "result": "$[emoji.success] Puedes copiar las marcas para ${TIMESTAMP} abajo.",
+            "format": "`${TIMESTAMP}`: ${STYLE}: ${TIMESTAMP}",
+            "styles": {
+                "short_time": "Hora corta",
+                "long_time": "Hora larga",
+                "short_date": "Fecha corta",
+                "long_date": "Fecha larga",
+                "short_date_time": "Fecha y hora corta",
+                "long_date_time": "Fecha y hora larga",
+                "relative_time": "Tiempo relativo"
+            },
+            "timezone_unknown": "$[emoji.warning] La zona horaria no está segura. Intenta especificarla con tu consulta. Compensación supuesta: ${OFFSET}."
+        },
+        "deepl": {
+            "invalid_key": "$[emoji.error] La clave de DeepL no es válida. Autenticación fallida.",
+            "usage": "El uso actual de la API de DeepL para la clave configurada es:\n```\n${USAGE}\n```",
+            "no_key": "$[emoji.error] No se ha configurado una clave de DeepL. Los gerentes pueden configurarla con `/deepl-config <key>`. Para conseguir una clave, registrate en <https://www.deepl.com/pro-api>!",
+            "key_set": "$[emoji.success] La clave de DeepL ha sido configurada y verificada correctamente.",
+            "translation": "$[emoji.success] Se ha traducido el texto correctamente:\n```\n${TRANSLATION}\n```"
+        }
+    },
+    "commands": {
+        "vcmove": {
+            "name": "movervc",
+            "description": "Mueve los miembros de un canal a otro.",
+            "options": {
+                "from": {
+                    "name": "de",
+                    "description": "El canal de donde mover los miembros."
+                },
+                "to": {
+                    "name": "a",
+                    "description": "El canal a donde mover los miembros."
+                }
+            }
+        },
+        "remove-category": {
+            "name": "eliminar-categoría",
+            "description": "Elimina todos los canales de una categoría.",
+            "options": {
+                "category": {
+                    "name": "categoría",
+                    "description": "La categoría que eliminar."
+                }
+            }
+        },
+        "timestamp": {
+            "name": "timestamp",
+            "description": "Muestra las marcas de fecha de Discord para copiar y pegar.",
+            "options": {
+                "timestamp": {
+                    "name": "timestamp",
+                    "description": "La marca de fecha que convertir."
+                }
+            }
+        },
+        "deepl": {
+            "name": "deepl",
+            "description": "Traduce un texto usando la API de DeepL.",
+            "options": {
+                "text": {
+                    "name": "texto",
+                    "description": "El texto que traducir."
+                },
+                "source": {
+                    "name": "origen",
+                    "description": "El idioma de origen. Por defecto, se usa la detección automática."
+                },
+                "target": {
+                    "name": "destino",
+                    "description": "El idioma de destino."
+                }
+            }
+        },
+        "deepl-config": {
+            "name": "deepl-config",
+            "description": "Configura la clave de DeepL o comprueba los limites.",
+            "options": {
+                "key": {
+                    "name": "clave",
+                    "description": "La clave de la API de DeepL."
+                }
+            }
+        }
+    }
+}

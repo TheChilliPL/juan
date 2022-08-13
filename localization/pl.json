@@ -1,0 +1,108 @@
+{
+    "messages": {
+        "vcmove": {
+            "start": "Przemieszczanie członków…",
+            "no_members": "$[emoji.warning] Nie znaleziono członków na kanale głosowym.",
+            "failure": "$[emoji.warning] Nie udało się przenieść członków do kanału.",
+            "success": "$[emoji.success] Przeniesiono członków do kanału głosowego.",
+            "partial": "$[emoji.warning] Przeniesiono **${MOVED}/${TOTAL}** członków do kanału głosowego."
+        },
+        "remove-category": {
+            "confirmation": {
+                "question_countdown": "$[emoji.warning] Czy jesteś **całkowicie** pewien, że chcesz usunąć wszystkie ${COUNT} kanałów z kategorii ${CATEGORY}?\n**TA AKCJA NIE MOŻE BYĆ COFNIĘTA!**\n\nPrzycisk zostanie aktywowany ${BUTTON_UNLOCK_TIMESTAMP}.",
+                "question": "$[emoji.warning] Czy jesteś **całkowicie** pewien, że chcesz usunąć wszystkie kanały z kategorii ${CATEGORY}?\n**TA AKCJA NIE MOŻE BYĆ COFNIĘTA!**\n\nNaciśnij przycisk poniżej, aby potwierdzić, lub usuń tę wiadomość.",
+                "yes": "Tak, usuń kategorię."
+            },
+            "start": "Usuwanie kanałów…",
+            "failure": "$[emoji.error] Nie udało się usunąć kanałów.",
+            "success": "$[emoji.success] Usunięto kanały pomyślnie."
+        },
+        "timestamp": {
+            "parse_error": "$[emoji.error] Nie udało się przetworzyć znacznika czasu.",
+            "multiple_timestamps_unsupported": "$[emoji.error] Brak wsparcia dla wielu znaczników czasu.",
+            "range_unsupported": "$[emoji.error] Brak wsparcia dla zakresu czasu ~~jeszcze~~.",
+            "result": "$[emoji.success] Możesz skopiować znaczniki czasu dla ${TIMESTAMP} poniżej.",
+            "format": "`${TIMESTAMP}` — ${STYLE}: ${TIMESTAMP}",
+            "styles": {
+                "short_time": "Krótki czas",
+                "long_time": "Długi czas",
+                "short_date": "Krótka data",
+                "long_date": "Długa data",
+                "short_date_time": "Krótki czas i data",
+                "long_date_time": "Długi czas i data",
+                "relative_time": "Czas względny"
+            }
+        },
+        "deepl": {
+            "invalid_key": "$[emoji.error] Nieprawidłowy klucz API DeepL. Błąd uwierzytelniania.",
+            "usage": "Obecne zużycie API dla skonfigurowanego klucza:\n```\n${USAGE}\n```",
+            "no_key": "$[emoji.error] Nie skonfigurowano klucza API DeepL. Osoby zarządzające serwerem mogą go ustawić przy użyciu `/deepl-config <key>`. Aby zdobyć klucz API, zarejestruj się na <https://www.deepl.com/pro-api>!",
+            "key_set": "$[emoji.success] Ustawiono i zweryfikowano klucz API DeepL pomyślnie.",
+            "translation": "$[emoji.success] Przetłumaczono tekst pomyślnie:\n```\n${TRANSLATION}\n```"
+        }
+    },
+    "commands": {
+        "vcmove": {
+            "name": "przenieśvc",
+            "description": "Przenosi członków do kanału głosowego.",
+            "options": {
+                "from": {
+                    "name": "z",
+                    "description": "Kanał głosowy z którego należy przenieść członków."
+                },
+                "to": {
+                    "name": "do",
+                    "description": "Kanał głosowy do którego należy przenieść członków."
+                }
+            }
+        },
+        "remove-category": {
+            "name": "usuń-kategorię",
+            "description": "Usuwa wszystkie kanały z kategorii.",
+            "options": {
+                "category": {
+                    "name": "kategoria",
+                    "description": "Kategoria do usunięcia."
+                }
+            }
+        },
+        "timestamp": {
+            "name": "timestamp",
+            "description": "Pokazuje Discordowe znaczniki czasu do skopiowania.",
+            "options": {
+                "timestamp": {
+                    "name": "czas",
+                    "description": "Czas do przekonwertowania."
+                }
+            }
+        },
+        "deepl": {
+            "name": "deepl",
+            "description": "Tłumaczy tekst używając API DeepL.",
+            "options": {
+                "text": {
+                    "name": "tekst",
+                    "description": "Tekst do przetłumaczenia."
+                },
+                "source": {
+                    "name": "źródło",
+                    "description": "Język źródłowy. Domyślnie, używane jest automatyczne wykrywanie."
+                },
+                "target": {
+                    "name": "cel",
+                    "description": "Język docelowy."
+                }
+            }
+        },
+        "deepl-config": {
+            "name": "deepl-config",
+            "description": "Ustawia klucz API DeepL lub sprawdza limity.",
+            "options": {
+                "key": {
+                    "name": "klucz",
+                    "description": "Klucz API DeepL."
+                }
+            }
+        }
+    }
+}
