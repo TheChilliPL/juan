@@ -40,6 +40,13 @@
             "no_key": "$[emoji.error] No se ha configurado una clave de DeepL. Los gerentes pueden configurarla con `/deepl-config <key>`. Para conseguir una clave, registrate en <https://www.deepl.com/pro-api>!",
             "key_set": "$[emoji.success] La clave de DeepL ha sido configurada y verificada correctamente.",
             "translation": "$[emoji.success] Se ha traducido el texto correctamente:\n```\n${TRANSLATION}\n```"
+        },
+        "vcnotifications": {
+            "no_permission": "$[emoji.error] No tienes permiso para usar este comando.",
+            "enabled": "$[emoji.success] Notificaciones del canal activadas.",
+            "disabled": "$[emoji.success] Notificaciones del canal desactivadas.",
+            "joined": "$[emoji.vc_join] ${USER} se ha unido a ${CHANNEL}.",
+            "left": "$[emoji.vc_leave] ${USER} ha salido de ${CHANNEL}."
         }
     },
     "commands": {
@@ -102,6 +109,20 @@
                 "key": {
                     "name": "clave",
                     "description": "La clave de la API de DeepL."
+                }
+            }
+        },
+        "vcnotifications": {
+            "name": "notificacionesvc",
+            "description": "Activa o desactiva los notificaciones del canal de voz.",
+            "options": {
+                "channel": {
+                    "name": "canal",
+                    "description": "El canal de voz que configurar."
+                },
+                "enable": {
+                    "name": "activar",
+                    "description": "Si activar o desactivar las notificaciones."
                 }
             }
         }

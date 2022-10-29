@@ -6,6 +6,7 @@ import {initVcmove} from "./commands/vcmove";
 import {initRemoveCategory} from "./commands/remove-category";
 import {initTimestamp} from "./commands/timestamp";
 import {getDeepLCommands, initDeepLCommand} from "./commands/deepl";
+import {initVcnotifications} from "./commands/vcnotifications";
 
 export async function registerCommands(guild?: Discord.Snowflake) {
     const commands: ApplicationCommandData[] = [
@@ -56,7 +57,28 @@ export async function registerCommands(guild?: Discord.Snowflake) {
                 }
             ]
         },
-        ...await getDeepLCommands()
+        ...await getDeepLCommands(),
+        {
+            name: "vcnotifications",
+            ...localizeObject("commands.vcnotifications"),
+            defaultMemberPermissions: Discord.PermissionFlagsBits.ManageChannels,
+            dmPermission: false,
+            options: [
+                {
+                    type: Discord.ApplicationCommandOptionType.Channel,
+                    name: "channel",
+                    required: true,
+                    ...localizeObject("commands.vcnotifications.options.channel"),
+                    channelTypes: [Discord.ChannelType.GuildVoice]
+                },
+                {
+                    type: Discord.ApplicationCommandOptionType.Boolean,
+                    name: "enable",
+                    required: true,
+                    ...localizeObject("commands.vcnotifications.options.enable")
+                }
+            ]
+        }
     ];
 
     if (guild) {
@@ -79,4 +101,5 @@ export async function addCommandListeners() {
     await initRemoveCategory();
     await initTimestamp();
     await initDeepLCommand();
+    await initVcnotifications();
 }

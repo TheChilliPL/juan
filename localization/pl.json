@@ -39,6 +39,13 @@
             "no_key": "$[emoji.error] Nie skonfigurowano klucza API DeepL. Osoby zarządzające serwerem mogą go ustawić przy użyciu `/deepl-config <key>`. Aby zdobyć klucz API, zarejestruj się na <https://www.deepl.com/pro-api>!",
             "key_set": "$[emoji.success] Ustawiono i zweryfikowano klucz API DeepL pomyślnie.",
             "translation": "$[emoji.success] Przetłumaczono tekst pomyślnie:\n```\n${TRANSLATION}\n```"
+        },
+        "vcnotifications": {
+            "no_permission": "$[emoji.error] Nie masz uprawnień do użycia tego polecenia.",
+            "enabled": "$[emoji.success] Włączono powiadomienia kanału głosowego.",
+            "disabled": "$[emoji.success] Wyłączono powiadomienia kanału głosowego.",
+            "joined": "$[emoji.vc_join] ${USER} dołączył do ${CHANNEL}.",
+            "left": "$[emoji.vc_leave] ${USER} opuścił ${CHANNEL}."
         }
     },
     "commands": {
@@ -101,6 +108,20 @@
                 "key": {
                     "name": "klucz",
                     "description": "Klucz API DeepL."
+                }
+            }
+        },
+        "vcnotifications": {
+            "name": "powiadomieniavc",
+            "description": "Włącza lub wyłącza powiadomienia kanału głosowego.",
+            "options": {
+                "channel": {
+                    "name": "kanał",
+                    "description": "Kanał głosowy do skonfigurowania powiadomień."
+                },
+                "enable": {
+                    "name": "enable",
+                    "description": "Czy włączyć czy wyłączyć powiadomienia."
                 }
             }
         }

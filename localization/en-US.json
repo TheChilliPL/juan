@@ -1,8 +1,10 @@
 {
     "emoji": {
-        "warning": "⚠️",
+        "warning": "⚠",
         "error": "❌",
-        "success": "✅"
+        "success": "✅",
+        "vc_join": "🟢",
+        "vc_leave": "🟥"
     },
     "messages": {
         "vcmove": {
@@ -45,6 +47,13 @@
             "no_key": "$[emoji.error] No DeepL API key currently set. Server managers can set one with `/deepl-config <key>`. To get an API key, sign up on <https://www.deepl.com/pro-api>!",
             "key_set": "$[emoji.success] DeepL API key set and verified successfully.",
             "translation": "$[emoji.success] Successfully translated the text:\n```\n${TRANSLATION}\n```"
+        },
+        "vcnotifications": {
+            "no_permission": "$[emoji.error] You don't have permission to use this command.",
+            "enabled": "$[emoji.success] Voice channel notifications enabled.",
+            "disabled": "$[emoji.success] Voice channel notifications disabled.",
+            "joined": "$[emoji.vc_join] ${USER} has joined ${CHANNEL}.",
+            "left": "$[emoji.vc_leave] ${USER} has left ${CHANNEL}."
         }
     },
     "commands": {
@@ -107,6 +116,20 @@
                 "key": {
                     "name": "key",
                     "description": "The DeepL API key."
+                }
+            }
+        },
+        "vcnotifications": {
+            "name": "vcnotifications",
+            "description": "Enables or disables voice channel notifications.",
+            "options": {
+                "channel": {
+                    "name": "channel",
+                    "description": "The voice channel to configure notifications for."
+                },
+                "enable": {
+                    "name": "enable",
+                    "description": "Whether to enable or disable voice channel notifications."
                 }
             }
         }
