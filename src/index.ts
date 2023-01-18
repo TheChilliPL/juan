@@ -73,6 +73,15 @@ async function init() {
 
     await client.login(token);
 
+    moduleManager.registerModules(
+        new VCMoveModule(),
+        new RemoveCategoryModule(),
+        new TimestampModule(),
+        new DeepLModule(),
+        new VCNotificationsModule(),
+        new AutoReactModule()
+    );
+
     if(shouldRegisterCommands) {
         logger.info("Registering commands");
         if(guilds.length > 0) console.debug("Guild ID-s: " + guilds);
@@ -93,14 +102,6 @@ async function init() {
         client.destroy();
         return;
     }
-
-    moduleManager.registerModules(
-        new VCMoveModule(),
-        new RemoveCategoryModule(),
-        new TimestampModule(),
-        new DeepLModule(),
-        new VCNotificationsModule()
-    );
 
     await moduleManager.init();
 
