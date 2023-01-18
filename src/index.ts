@@ -1,16 +1,34 @@
 import * as Discord from "discord.js";
 import {logHelp, Parameter, parseArguments} from "./arguments";
 import {initLocales} from "./localization";
-import {addCommandListeners, registerCommands, removeCommands} from "./commands";
 import * as dotenv from "dotenv";
+import {ConsoleAggregator, Logger, LogManager} from "./logger";
+import {DeepLModule} from "./modules/deepl";
+import {BotModuleManager} from "./modules";
+import {VCMoveModule} from "./modules/vcmove";
+import {RemoveCategoryModule} from "./modules/remove-category";
+import {TimestampModule} from "./modules/timestamp";
+import {VCNotificationsModule} from "./modules/vcnotifications";
 dotenv.config();
 
 export let client: Discord.Client<true>;
+
+export let logManager: LogManager = new LogManager();
+let rootLogger: Logger;
+
+export let moduleManager = new BotModuleManager();
 
 /**
  * Loads the config file and initializes the client.
  */
 async function init() {
+    logManager.aggregators.push(
+        new ConsoleAggregator()
+    );
+
+    let logger = new Logger(logManager, "Initializer");
+    rootLogger = new Logger(logManager, "Root");
+
     let stopExecution = false;
     let shouldRegisterCommands = false;
     let shouldRemoveCommands = false;
@@ -56,29 +74,37 @@ async function init() {
     await client.login(token);
 
     if(shouldRegisterCommands) {
-        console.info("Registering commands");
-        if(guilds.length > 0) console.info("Guild ID-s: " + guilds);
+        logger.info("Registering commands");
+        if(guilds.length > 0) console.debug("Guild ID-s: " + guilds);
         for(let guild of guilds)
-            await registerCommands(guild);
+            await moduleManager.registerCommands(guild);
         if(guilds.length == 0) {
-            console.info("All guilds");
-            await registerCommands();
+            logger.debug("All guilds");
+            await moduleManager.registerCommands();
         }
         client.destroy();
         return;
     } else if(shouldRemoveCommands) {
-        console.info("Removing commands");
-        if(guilds.length > 0) console.info("Guild ID-s: " + guilds);
+        logger.info("Removing commands");
+        if(guilds.length > 0) console.debug("Guild ID-s: " + guilds);
         for(let guild of guilds)
-            await removeCommands(guild);
-        if(guilds.length == 0) await removeCommands();
+            await moduleManager.removeCommands(guild);
+        if(guilds.length == 0) await moduleManager.removeCommands();
         client.destroy();
         return;
     }
 
-    await addCommandListeners();
+    moduleManager.registerModules(
+        new VCMoveModule(),
+        new RemoveCategoryModule(),
+        new TimestampModule(),
+        new DeepLModule(),
+        new VCNotificationsModule()
+    );
 
-    console.info("Ready");
+    await moduleManager.init();
+
+    logger.info("Ready and logged with ID {0}.", client.user.id);
 }
 
-init().catch(console.error);
+init().catch((...args) => { (rootLogger ?? console).error(...args) });
