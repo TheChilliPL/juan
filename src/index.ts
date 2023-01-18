@@ -1,4 +1,5 @@
 import * as Discord from "discord.js";
+import {Partials} from "discord.js";
 import {logHelp, Parameter, parseArguments} from "./arguments";
 import {initLocales} from "./localization";
 import * as dotenv from "dotenv";
@@ -9,6 +10,8 @@ import {VCMoveModule} from "./modules/vcmove";
 import {RemoveCategoryModule} from "./modules/remove-category";
 import {TimestampModule} from "./modules/timestamp";
 import {VCNotificationsModule} from "./modules/vcnotifications";
+import {AutoReactModule} from "./modules/auto-react";
+
 dotenv.config();
 
 export let client: Discord.Client<true>;
@@ -67,7 +70,14 @@ async function init() {
 
     client = new Discord.Client({
         intents: [
-            "Guilds", "GuildVoiceStates"
+            Discord.GatewayIntentBits.Guilds,
+            Discord.GatewayIntentBits.GuildVoiceStates,
+            Discord.GatewayIntentBits.DirectMessages,
+            Discord.GatewayIntentBits.GuildMessages
+        ],
+        partials: [
+            Partials.Message,
+            Partials.Reaction
         ]
     });
 
@@ -108,4 +118,4 @@ async function init() {
     logger.info("Ready and logged with ID {0}.", client.user.id);
 }
 
-init().catch((...args) => { (rootLogger ?? console).error(...args) });
+init().catch((...args) => { (rootLogger ?? console).error("Encountered an error: {0}", args) });

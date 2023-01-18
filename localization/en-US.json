@@ -4,7 +4,8 @@
         "error": "❌",
         "success": "✅",
         "vc_join": "🟢",
-        "vc_leave": "🟥"
+        "vc_leave": "🟥",
+        "process": "🔄"
     },
     "messages": {
         "vcmove": {
@@ -54,6 +55,18 @@
             "disabled": "$[emoji.success] Voice channel notifications disabled.",
             "joined": "$[emoji.vc_join] ${USER} has joined ${CHANNEL}.",
             "left": "$[emoji.vc_leave] ${USER} has left ${CHANNEL}."
+        },
+        "auto-react": {
+            "added": "$[emoji.success] Added auto-reaction.",
+            "removed": "$[emoji.success] Removed auto-reaction.",
+            "retroactive": {
+                "started": "$[emoji.process] Started adding auto-reactions to existing messages…",
+                "finished": "$[emoji.success] Finished adding auto-reactions to existing messages."
+            },
+            "retroactive-remove": {
+                "started": "$[emoji.process] Started removing auto-reactions from existing messages…",
+                "finished": "$[emoji.success] Finished removing auto-reactions from existing messages."
+            }
         }
     },
     "commands": {
@@ -130,6 +143,84 @@
                 "enable": {
                     "name": "enable",
                     "description": "Whether to enable or disable voice channel notifications."
+                }
+            }
+        },
+        "auto-react": {
+            "name": "auto-react",
+            "description": "Enables or disables auto-reactions.",
+            "subcommands": {
+                "add": {
+                    "name": "add",
+                    "description": "Adds an auto-reaction.",
+                    "options": {
+                        "channel": {
+                            "name": "channel",
+                            "description": "The channel to add the auto-reaction to."
+                        },
+                        "reactions": {
+                            "name": "reactions",
+                            "description": "The reactions to add."
+                        },
+                        "regex": {
+                            "name": "regex",
+                            "description": "The regex to match."
+                        }
+                    }
+                },
+                "remove": {
+                    "name": "remove",
+                    "description": "Removes an auto-reaction.",
+                    "options": {
+                        "channel": {
+                            "name": "channel",
+                            "description": "The channel to remove the auto-reaction from."
+                        },
+                        "reactions": {
+                            "name": "reactions",
+                            "description": "The reactions to remove the auto-reactions of. If not specified, all auto-reactions are removed."
+                        }
+                    }
+                },
+                "retro-add": {
+                    "name": "retro-add",
+                    "description": "Adds reactions to existing messages.",
+                    "options": {
+                        "channel": {
+                            "name": "channel",
+                            "description": "The channel to add reactions to."
+                        },
+                        "reactions": {
+                            "name": "reactions",
+                            "description": "The reactions to add."
+                        },
+                        "regex": {
+                            "name": "regex",
+                            "description": "The regex to match."
+                        }
+                    }
+                },
+                "retro-remove": {
+                    "name": "retro-remove",
+                    "description": "Removes reactions from existing messages.",
+                    "options": {
+                        "channel": {
+                            "name": "channel",
+                            "description": "The channel to remove reactions from."
+                        },
+                        "reactions": {
+                            "name": "reactions",
+                            "description": "The reactions to remove the reactions of. If not specified, all reactions are removed."
+                        },
+                        "regex": {
+                            "name": "regex",
+                            "description": "The regex to match."
+                        },
+                        "remove-all-users": {
+                            "name": "remove-all-users",
+                            "description": "Whether to remove all users' reactions or only the bot's."
+                        }
+                    }
                 }
             }
         }

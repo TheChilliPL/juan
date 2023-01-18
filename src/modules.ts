@@ -23,6 +23,8 @@ export class BotModuleManager {
 
         const commands = (await Promise.all(this.modules.map(module => module.createCommands()))).flat();
 
+        this.logger.verbose("Commands: {0}", commands);
+
         if (guild) {
             await client.application.commands.set(commands, guild!);
         } else {

@@ -1,3 +1,6 @@
+import { client } from "./index";
+import * as Discord from "discord.js";
+
 export type Nullable<T> = T | null;
 
 export type AllowedObjectKey = string | number | symbol;
@@ -56,4 +59,21 @@ export function offsetToString(offset: number): string {
     let minutes = Math.abs(offset) % 60;
 
     return `${sign}${hours}${minutes ? `:${minutes.toString().padStart(2, "0")}` : ""}`;
+}
+
+const emojiRegexPart = "\\p{Extended_Pictographic}";
+const emoteRegex = new RegExp(`<a?:.+?:\\d{18}>|${emojiRegexPart}`, "gu");
+
+export function getEmotes(str: string): string[] {
+    return [...str.matchAll(emoteRegex)].map(x => x[0]);
+}
+
+export function canReceiveMessageContent(): boolean {
+    let applicationFlags = client.application.flags;
+    if(applicationFlags.has(Discord.ApplicationFlags.GatewayMessageContent))
+        return true;
+    // noinspection RedundantIfStatementJS
+    if(applicationFlags.has(Discord.ApplicationFlags.GatewayMessageContentLimited))
+        return true;
+    return false;
 }
