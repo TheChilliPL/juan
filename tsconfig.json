@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es6",
+    "target": "ES6",
     "sourceMap": true,
     "rootDir": "src",
-    "strict": true
+    "strict": true,
+    "moduleResolution": "Node",
+    "moduleDetection": "force"
   }
 }

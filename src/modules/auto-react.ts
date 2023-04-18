@@ -240,7 +240,7 @@ export class AutoReactModule extends BotModule {
                     await this.addReactions(channel, reactions);
 
                     await interaction.reply({
-                        content: getString("messages.auto-react.added", getLocaleFor(interaction)),
+                        content: getString("messages.auto-react.added", getLocaleFor(interaction))!,
                         ephemeral: true
                     });
 
@@ -254,12 +254,12 @@ export class AutoReactModule extends BotModule {
 
                     if (await this.removeReactions(channel, reactions)) {
                         await interaction.reply({
-                            content: getString("messages.auto-react.removed", getLocaleFor(interaction)),
+                            content: getString("messages.auto-react.removed", getLocaleFor(interaction))!,
                             ephemeral: true
                         });
                     } else {
                         await interaction.reply({
-                            content: getString("messages.auto-react.not-found", getLocaleFor(interaction)),
+                            content: getString("messages.auto-react.not-found", getLocaleFor(interaction))!,
                             ephemeral: true
                         });
                     }
@@ -273,14 +273,14 @@ export class AutoReactModule extends BotModule {
                     let reactions = getEmotes(reactionsStr);
 
                     await interaction.reply({
-                        content: getString("messages.auto-react.retroactive.started", getLocaleFor(interaction)),
+                        content: getString("messages.auto-react.retroactive.started", getLocaleFor(interaction))!,
                         ephemeral: true
                     });
 
                     await this.retroactiveAddReactions(channel, reactions);
 
                     await interaction.followUp({
-                        content: getString("messages.auto-react.retroactive.finished", getLocaleFor(interaction)),
+                        content: getString("messages.auto-react.retroactive.finished", getLocaleFor(interaction))!,
                         ephemeral: true
                     });
 
@@ -295,14 +295,14 @@ export class AutoReactModule extends BotModule {
                     let removeAllUsers = interaction.options.getBoolean("remove-all-users", false) ?? undefined;
 
                     await interaction.reply({
-                        content: getString("messages.auto-react.retroactive-remove.started", getLocaleFor(interaction)),
+                        content: getString("messages.auto-react.retroactive-remove.started", getLocaleFor(interaction))!,
                         ephemeral: true
                     });
 
                     await this.retroactiveRemoveReactions(channel, reactions, undefined, removeAllUsers);
 
                     await interaction.followUp({
-                        content: getString("messages.auto-react.retroactive-remove.finished", getLocaleFor(interaction)),
+                        content: getString("messages.auto-react.retroactive-remove.finished", getLocaleFor(interaction))!,
                         ephemeral: true
                     });
 

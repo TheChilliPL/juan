@@ -5,21 +5,25 @@
   "scripts": {
     "postinstall": "patch-package",
     "start": "npx ts-node src/main.ts",
-    "test": "npx ts-node-test tests"
+    "test": "globstar -- node --no-warnings --loader tsx --test \"src/tests/**/*.ts\""
   },
   "author": "TheChilliPL <chilli@thechilli.dev>",
   "license": "MPL-2.0",
+  "type": "module",
   "devDependencies": {
     "@types/node": "^18.0.0",
+    "globstar": "^1.0.0",
     "patch-package": "^6.4.7",
     "ts-node": "^10.8.1",
-    "typescript": "^4.7.4",
-    "ts-node-test": "^0.4.1"
+    "tsx": "^3.12.7",
+    "typescript": "^4.7.4"
   },
   "dependencies": {
     "chrono-node": "^2.3.9",
+    "commonjs": "^0.0.1",
     "deepl-node": "^1.4.0",
     "discord.js": "^14.1.2",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "node": "^20.0.0"
   }
 }

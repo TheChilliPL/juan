@@ -44,7 +44,7 @@ export class TimestampModule extends BotModule {
 
             if(parsedResults.length == 0) {
                 await interaction.reply({
-                    content: getString("messages.timestamp.parse_error", getLocaleFor(interaction)),
+                    content: getString("messages.timestamp.parse_error", getLocaleFor(interaction))!,
                     ephemeral: true
                 });
                 return;
@@ -56,7 +56,7 @@ export class TimestampModule extends BotModule {
                 //     return;
             } else if(parsedResults[0].end != null) {
                 await interaction.reply({
-                    content: getString("messages.timestamp.range_unsupported", getLocaleFor(interaction)),
+                    content: getString("messages.timestamp.range_unsupported", getLocaleFor(interaction))!,
                     ephemeral: true
                 });
                 return;

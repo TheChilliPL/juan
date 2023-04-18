@@ -1,17 +1,21 @@
 import { test } from "node:test";
-import assert = require("node:assert");
-import { Future, FutureState } from "../src/future";
-import * as Utils from "../src/utils";
+import { strict as assert } from "node:assert";
+import { Future, FutureState } from "../future";
+import * as Utils from "../utils";
+
+let delay = 50;
 
 test("Future", async () => {
-    let future = new Future(() => Utils.sleep(500));
-    let result = await Promise.race([future, Utils.sleep(100)]);
+    let future = new Future(() => Utils.sleep(delay));
+    assert.equal(future.state, FutureState.Created);
+    let result = await future;
+    assert.equal(future.state, FutureState.Complete);
     assert.equal(result, undefined);
 });
 
 test("Future with return", async () => {
     let future = new Future(async () => {
-        await Utils.sleep(500);
+        await Utils.sleep(delay);
         return "success";
     });
     assert.equal(future.state, FutureState.Created);
@@ -25,7 +29,7 @@ test("Future with return", async () => {
 
 test("Failed future", async () => {
     let future = new Future(() => new Promise(async (_, reject) => {
-        await Utils.sleep(500);
+        await Utils.sleep(delay);
         reject(2);
     }));
     assert.equal(future.state, FutureState.Created);

@@ -62,7 +62,7 @@ export function offsetToString(offset: number): string {
 }
 
 const emojiRegexPart = "\\p{Extended_Pictographic}";
-const emoteRegex = new RegExp(`<a?:.+?:\\d{18}>|${emojiRegexPart}`, "gu");
+const emoteRegex = new RegExp(`<a?:.+?:\\d+>|${emojiRegexPart}`, "gu");
 
 export function getEmotes(str: string): string[] {
     return [...str.matchAll(emoteRegex)].map(x => x[0]);
@@ -82,4 +82,27 @@ export function sleep(ms: number) {
     return new Promise(resolve => {
         setTimeout(resolve, ms);
     });
+}
+
+export function sortedIndex<T extends number | bigint>(array: T[], value: T, comp?: (a: T, b: T) => number, existingAfter?: boolean): number;
+export function sortedIndex<T>(array: T[], value: T, comp: (a: T, b: T) => number, existingAfter?: boolean): number;
+export function sortedIndex<T>(array: T[], value: T, comp?: (a: T, b: T) => number, existingAfter: boolean = false): number {
+    if(!comp) {
+        if (typeof value == "number")
+            comp = ((a: any, b: any) => a - b);
+        else
+            throw new Error("No comparator provided for non-numeric values.");
+    }
+
+    let low = 0;
+    let high = array.length;
+
+    while(low < high) {
+        let mid = (low + high) >>> 1;
+        let c = comp(array[mid], value);
+        if(c < 0 || (existingAfter && c == 0)) low = mid + 1;
+        else high = mid;
+    }
+
+    return low;
 }
