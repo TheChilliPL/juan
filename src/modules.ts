@@ -1,7 +1,7 @@
 import * as Discord from "discord.js";
 import {ApplicationCommandData} from "discord.js";
 import {Logger} from "./logger";
-import {client, logManager} from "./index";
+import {client, logManager} from "./bot";
 
 export class BotModuleManager {
     protected logger: Logger = new Logger(logManager, "ModuleManager");

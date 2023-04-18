@@ -3,7 +3,7 @@ import {ApplicationCommandData} from "discord.js";
 import {getLocaleFor, getString, localizeObject} from "../localization";
 import {JsonVault} from "../vault";
 import {Nullable} from "../utils";
-import {client} from "../index";
+import {client} from "../bot";
 import * as deepl from "deepl-node";
 import {SourceLanguageCode, TargetLanguageCode} from "deepl-node";
 import {BotModule} from "../modules";

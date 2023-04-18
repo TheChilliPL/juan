@@ -1,5 +1,5 @@
 import * as Discord from "discord.js";
-import {client} from "../index";
+import {client} from "../bot";
 import {getLocaleFor, getString, localizeObject} from "../localization";
 import {BotModule} from "../modules";
 import {ApplicationCommandData} from "discord.js";

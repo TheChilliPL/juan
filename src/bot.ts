@@ -1,8 +1,9 @@
 import * as Discord from "discord.js";
 import {Partials} from "discord.js";
+import * as dotenv from "dotenv";
+
 import {logHelp, Parameter, parseArguments} from "./arguments";
 import {initLocales} from "./localization";
-import * as dotenv from "dotenv";
 import {ConsoleAggregator, Logger, LogManager} from "./logger";
 import {DeepLModule} from "./modules/deepl";
 import {BotModuleManager} from "./modules";
@@ -12,19 +13,19 @@ import {TimestampModule} from "./modules/timestamp";
 import {VCNotificationsModule} from "./modules/vcnotifications";
 import {AutoReactModule} from "./modules/auto-react";
 
-dotenv.config();
-
 export let client: Discord.Client<true>;
 
 export let logManager: LogManager = new LogManager();
-let rootLogger: Logger;
+export let rootLogger: Logger;
 
 export let moduleManager = new BotModuleManager();
 
 /**
  * Loads the config file and initializes the client.
  */
-async function init() {
+export async function init() {
+    dotenv.config();
+
     logManager.aggregators.push(
         new ConsoleAggregator()
     );
@@ -117,5 +118,3 @@ async function init() {
 
     logger.info("Ready and logged with ID {0}.", client.user.id);
 }
-
-init().catch((...args) => { (rootLogger ?? console).error("Encountered an error: {0}", args) });

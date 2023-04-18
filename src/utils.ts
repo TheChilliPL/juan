@@ -1,4 +1,4 @@
-import { client } from "./index";
+import { client } from "./bot";
 import * as Discord from "discord.js";
 
 export type Nullable<T> = T | null;
@@ -58,7 +58,7 @@ export function offsetToString(offset: number): string {
     let hours = Math.floor(Math.abs(offset) / 60);
     let minutes = Math.abs(offset) % 60;
 
-    return `${sign}${hours}${minutes ? `:${minutes.toString().padStart(2, "0")}` : ""}`;
+    return `${sign}${hours.toString().padStart(2, "0")}${minutes ? `:${minutes.toString().padStart(2, "0")}` : ""}`;
 }
 
 const emojiRegexPart = "\\p{Extended_Pictographic}";
@@ -76,4 +76,10 @@ export function canReceiveMessageContent(): boolean {
     if(applicationFlags.has(Discord.ApplicationFlags.GatewayMessageContentLimited))
         return true;
     return false;
+}
+
+export function sleep(ms: number) {
+    return new Promise(resolve => {
+        setTimeout(resolve, ms);
+    });
 }

@@ -4,15 +4,17 @@
   "description": "juan.",
   "scripts": {
     "postinstall": "patch-package",
-    "start": "npx ts-node src/index.ts"
+    "start": "npx ts-node src/main.ts",
+    "test": "npx ts-node-test tests"
   },
-  "author": "TheChilliPL <dragonacchilli@gmail.com>",
+  "author": "TheChilliPL <chilli@thechilli.dev>",
   "license": "MPL-2.0",
   "devDependencies": {
     "@types/node": "^18.0.0",
     "patch-package": "^6.4.7",
     "ts-node": "^10.8.1",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "ts-node-test": "^0.4.1"
   },
   "dependencies": {
     "chrono-node": "^2.3.9",

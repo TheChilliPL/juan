@@ -1,6 +1,6 @@
 import * as Discord from "discord.js";
 import {Logger} from "./logger";
-import {logManager} from "./index";
+import {logManager} from "./bot";
 
 export interface MessageGeneratorOptions {
     limit?: number;

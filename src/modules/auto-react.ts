@@ -9,7 +9,7 @@
 import * as Discord from "discord.js";
 import {BotModule} from "../modules";
 import {getLocaleFor, getString, localizeObject} from "../localization";
-import {client} from "../index";
+import {client} from "../bot";
 import {channel} from "diagnostics_channel";
 import {JsonVault} from "../vault";
 import {getEmotes} from "../utils";
