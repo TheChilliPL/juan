@@ -78,8 +78,7 @@ async function init() {
         new RemoveCategoryModule(),
         new TimestampModule(),
         new DeepLModule(),
-        new VCNotificationsModule(),
-        new AutoReactModule()
+        new VCNotificationsModule()
     );
 
     if(shouldRegisterCommands) {
@@ -108,4 +107,4 @@ async function init() {
     logger.info("Ready and logged with ID {0}.", client.user.id);
 }
 
-init().catch((...args) => { (rootLogger ?? console).error(...args) });
+init().catch((reason: any) => { (rootLogger ?? console).error("Exception thrown.\n{0}", reason) });

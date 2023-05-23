@@ -12,7 +12,11 @@ export abstract class Aggregator {
 }
 
 export class ConsoleAggregator extends Aggregator {
-    static formatForConsole(message: string, ...args: any[]): any[] {
+    static formatForConsole(message: string, ...args: unknown[]): unknown[];
+    static formatForConsole(message: any, ...args: unknown[]): unknown[];
+    static formatForConsole(message: unknown, ...args: unknown[]): unknown[] {
+        if(typeof message !== "string") return [message, ...args];
+
         let result = [];
         const placeholderRegex = /{\d+}/g;
         let placeholders = message.match(placeholderRegex) ?? [];
@@ -20,10 +24,11 @@ export class ConsoleAggregator extends Aggregator {
 
         for(let i = 0; i < parts.length; i++) {
             result.push(parts[i]);
-            if(i < placeholders.length) {
-                let j = Number(placeholders[i].slice(1,-1));
-                result.push(args[j]);
-            }
+
+            if(i >= placeholders.length) continue;
+
+            let j = Number(placeholders[i].slice(1,-1));
+            result.push(args[j]);
         }
 
         return result;
