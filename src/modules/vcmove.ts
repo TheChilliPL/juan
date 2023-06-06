@@ -42,7 +42,7 @@ export class VCMoveModule extends BotModule {
             if(interaction.commandName != "vcmove") return;
 
             await interaction.reply({
-                content: getString("messages.vcmove.start", getLocaleFor(interaction)),
+                content: getString("messages.vcmove.start", getLocaleFor(interaction))!,
                 ephemeral: true
             });
 

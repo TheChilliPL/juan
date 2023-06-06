@@ -179,7 +179,7 @@ export class DeepLModule extends BotModule {
                     placeholders: {
                         TRANSLATION: translation.text
                     }
-                })
+                })!
             });
         });
 

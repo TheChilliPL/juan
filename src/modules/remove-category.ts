@@ -55,7 +55,7 @@ export class RemoveCategoryModule extends BotModule {
                         COUNT: category.children.cache.size.toString(),
                         BUTTON_UNLOCK_TIMESTAMP: buttonUnlockTimestamp
                     }
-                }),
+                })!,
                 components: [
                     {
                         type: Discord.ComponentType.ActionRow,

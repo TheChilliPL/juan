@@ -87,7 +87,7 @@ export class VCNotificationsModule extends BotModule {
 
             if (!channel.permissionsFor(interaction.user)?.has(Discord.PermissionFlagsBits.ManageChannels)) {
                 await interaction.reply({
-                    content: getString("messages.vcnotifications.no_permission", getLocaleFor(interaction))
+                    content: getString("messages.vcnotifications.no_permission", getLocaleFor(interaction))!
                 });
                 return;
             }
@@ -97,7 +97,7 @@ export class VCNotificationsModule extends BotModule {
             await this.setVcNotificationsEnabled(channel, enable);
 
             await interaction.reply({
-                content: getString("messages.vcnotifications." + (enable ? "enabled" : "disabled"), getLocaleFor(interaction))
+                content: getString("messages.vcnotifications." + (enable ? "enabled" : "disabled"), getLocaleFor(interaction))!
             });
         });
 

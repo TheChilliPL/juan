@@ -5,6 +5,12 @@ A simple Discord utility bot made with [TypeScript] and [Discord.js].
 [TypeScript]: https://www.typescriptlang.org/
 [Discord.js]: https://discord.js.org/
 
+## Table of contents
+
+- [How to use](#how-to-use)
+    - [Public instance](#public-instance)
+    - [Private instance](#private-instance)
+
 ## How to use
 
 ### Public instance

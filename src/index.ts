@@ -9,6 +9,7 @@ import {VCMoveModule} from "./modules/vcmove";
 import {RemoveCategoryModule} from "./modules/remove-category";
 import {TimestampModule} from "./modules/timestamp";
 import {VCNotificationsModule} from "./modules/vcnotifications";
+import { ImageDetectionModule } from "./modules/imagedetection";
 dotenv.config();
 
 export let client: Discord.Client<true>;
@@ -78,7 +79,8 @@ async function init() {
         new RemoveCategoryModule(),
         new TimestampModule(),
         new DeepLModule(),
-        new VCNotificationsModule()
+        new VCNotificationsModule(),
+        new ImageDetectionModule()
     );
 
     if(shouldRegisterCommands) {
