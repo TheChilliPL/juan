@@ -61,11 +61,11 @@
             "removed": "$[emoji.success] Removed auto-reaction.",
             "retroactive": {
                 "started": "$[emoji.process] Started adding auto-reactions to existing messages…",
-                "finished": "$[emoji.success] Finished adding auto-reactions to existing messages."
+                "finished": "$[emoji.success] Added ${ADDED} auto-reactions to existing messages."
             },
             "retroactive-remove": {
                 "started": "$[emoji.process] Started removing auto-reactions from existing messages…",
-                "finished": "$[emoji.success] Finished removing auto-reactions from existing messages."
+                "finished": "$[emoji.success] Removed ${REMOVED} auto-reactions from existing messages."
             }
         }
     },

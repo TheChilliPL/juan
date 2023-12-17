@@ -9,11 +9,11 @@
 import * as Discord from "discord.js";
 import {BotModule} from "../modules";
 import {getLocaleFor, getString, localizeObject} from "../localization";
-import {client} from "../bot";
-import {channel} from "diagnostics_channel";
+import {client, scheduler} from "../bot";
 import {JsonVault} from "../vault";
 import {getEmotes} from "../utils";
 import {generateMessages} from "../messageGenerator";
+import {PriorityConstants} from "../concurrency/scheduler";
 
 interface AutoReactVaultData {
     autoReacts?: {
@@ -55,7 +55,11 @@ export class AutoReactModule extends BotModule {
         }
     }
 
-    async retroactiveAddReactions(channel: Discord.TextChannel, reactions: string[], regex?: RegExp): Promise<number> {
+    async retroactiveAddReactions(
+        channel: Discord.TextChannel,
+        reactions: string[],
+        regex?: RegExp
+    ): Promise<number> {
         // let messages = await channel.messages.fetch({
         //     limit: 200
         // });
@@ -64,47 +68,64 @@ export class AutoReactModule extends BotModule {
                 return regex?.test(message.content) ?? true;
             }
         });
-        let promises: Promise<void>[] = [];
+        let reactionCount = 0;
         for await(let message of messages) {
-            promises.push(new Promise<void>(async resolve => {
-                for (let reaction of reactions) {
-                    await message.react(reaction);
-                }
-                resolve();
-            }));
+            for (let reaction of reactions) {
+                await scheduler.schedule(() => message.react(reaction), PriorityConstants.Idle);
+                reactionCount++;
+            }
         }
-        await Promise.all(promises);
-        return promises.length;
+
+        return reactionCount;
     }
 
-    async retroactiveRemoveReactions(channel: Discord.TextChannel, reactions?: string[], regex?: RegExp, removeAllUsers: boolean = false): Promise<number> {
+    async retroactiveRemoveReactions(
+        channel: Discord.TextChannel,
+        reactions?: string[],
+        regex?: RegExp,
+        removeAllUsers: boolean = false
+    ): Promise<number> {
         let messages = generateMessages(channel.messages, {
             filter: message => {
                 return regex?.test(message.content) ?? true;
             }
         });
-        let promises: Promise<void>[] = [];
+        let reactionCount = 0;
         for await(let message of messages) {
-            promises.push(new Promise<void>(async (resolve) => {
-                if(reactions) {
-                    for (let reaction of reactions) {
-                        if(removeAllUsers)
-                            await message.reactions.resolve(reaction)?.remove();
-                        else
-                            await message.reactions.resolve(reaction)?.users?.remove(client.user);
+            if(reactions) {
+                for (let reaction of reactions) {
+                    if(removeAllUsers) {
+                        const r = message.reactions.resolve(reaction);
+                        if(r != null) {
+                            await scheduler.schedule(() => r.remove(), PriorityConstants.Idle);
+                            reactionCount += r.count ?? 0;
+                        }
+                    } else {
+                        const r = message.reactions.resolve(reaction);
+                        if(r && r.me) {
+                            // r?.remove() would remove all users
+                            await scheduler.schedule(() => r.users.remove(client.user), PriorityConstants.Idle);
+                            reactionCount++;
+                        }
                     }
-                } else {
-                    if(removeAllUsers)
-                        await message.reactions.removeAll();
-                    else
-                        await Promise.all(message.reactions.valueOf().map(reaction => reaction.users.remove(client.user)))
                 }
-                resolve();
-            }));
+            } else {
+                if(removeAllUsers) {
+                    let r = message.reactions;
+                    reactionCount += r.valueOf().map(reaction => reaction.count).reduce((a, b) => a + b, 0);
+                    await scheduler.schedule(() => r.removeAll(), PriorityConstants.Idle)
+                } else {
+                    let r = message.reactions.valueOf().filter(reaction => reaction.users.cache.has(client.user.id));
+                    await Promise.all(
+                        r.map(reaction => () => reaction.users.remove(client.user))
+                            .map(func => scheduler.schedule(func, PriorityConstants.Idle))
+                    );
+                    reactionCount += r.size;
+                }
+            }
         }
 
-        await Promise.all(promises);
-        return promises.length;
+        return reactionCount;
     }
 
     override async createCommands(): Promise<Discord.ApplicationCommandData[]> {
@@ -235,8 +256,6 @@ export class AutoReactModule extends BotModule {
 
                     let reactions = getEmotes(reactionsStr);
 
-                    this.logger.info("{0}", reactions);
-
                     await this.addReactions(channel, reactions);
 
                     await interaction.reply({
@@ -277,10 +296,14 @@ export class AutoReactModule extends BotModule {
                         ephemeral: true
                     });
 
-                    await this.retroactiveAddReactions(channel, reactions);
+                    let added = await this.retroactiveAddReactions(channel, reactions);
 
                     await interaction.followUp({
-                        content: getString("messages.auto-react.retroactive.finished", getLocaleFor(interaction))!,
+                        content: getString("messages.auto-react.retroactive.finished", getLocaleFor(interaction), {
+                            placeholders: {
+                                ADDED: added.toString()
+                            }
+                        })!,
                         ephemeral: true
                     });
 
@@ -299,10 +322,14 @@ export class AutoReactModule extends BotModule {
                         ephemeral: true
                     });
 
-                    await this.retroactiveRemoveReactions(channel, reactions, undefined, removeAllUsers);
+                    let removed = await this.retroactiveRemoveReactions(channel, reactions, undefined, removeAllUsers);
 
                     await interaction.followUp({
-                        content: getString("messages.auto-react.retroactive-remove.finished", getLocaleFor(interaction))!,
+                        content: getString("messages.auto-react.retroactive-remove.finished", getLocaleFor(interaction), {
+                            placeholders: {
+                                REMOVED: removed.toString()
+                            }
+                        })!,
                         ephemeral: true
                     });
 

@@ -4,7 +4,7 @@
   "description": "juan.",
   "scripts": {
     "postinstall": "patch-package",
-    "start": "npx ts-node src/main.ts",
+    "start": "npx tsx src/main.ts",
     "test": "globstar -- node --no-warnings --loader tsx --test \"src/tests/**/*.ts\""
   },
   "author": "TheChilliPL <chilli@thechilli.dev>",

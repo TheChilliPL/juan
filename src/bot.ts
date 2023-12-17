@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 
 import {logHelp, Parameter, parseArguments} from "./arguments";
 import {initLocales} from "./localization";
-import {ConsoleAggregator, Logger, LogManager} from "./logger";
+import {Logger, logManager} from "./logger";
 import {DeepLModule} from "./modules/deepl";
 import {BotModuleManager} from "./modules";
 import {VCMoveModule} from "./modules/vcmove";
@@ -12,13 +12,15 @@ import {RemoveCategoryModule} from "./modules/remove-category";
 import {TimestampModule} from "./modules/timestamp";
 import {VCNotificationsModule} from "./modules/vcnotifications";
 import {AutoReactModule} from "./modules/auto-react";
+import {Scheduler} from "./concurrency/scheduler";
+import {SimpleScheduler} from "./concurrency/simpleScheduler";
 
 export let client: Discord.Client<true>;
 
-export let logManager: LogManager = new LogManager();
-export let rootLogger: Logger;
+export let rootLogger = new Logger(logManager, "Root");
 
 export let moduleManager = new BotModuleManager();
+export let scheduler: Scheduler = new SimpleScheduler();
 
 /**
  * Loads the config file and initializes the client.
@@ -26,12 +28,7 @@ export let moduleManager = new BotModuleManager();
 export async function init() {
     dotenv.config();
 
-    logManager.aggregators.push(
-        new ConsoleAggregator()
-    );
-
     let logger = new Logger(logManager, "Initializer");
-    rootLogger = new Logger(logManager, "Root");
 
     let stopExecution = false;
     let shouldRegisterCommands = false;
@@ -116,5 +113,5 @@ export async function init() {
 
     await moduleManager.init();
 
-    logger.info("Ready and logged with ID {0}.", client.user.id);
+    logger.info("Ready and logged as @{0} (ID: {1}).", client.user.tag, client.user.id);
 }

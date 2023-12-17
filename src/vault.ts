@@ -1,7 +1,6 @@
 import * as fs from "fs/promises";
 import * as path from "path";
-import {logManager} from "./bot";
-import {Logger} from "./logger";
+import {Logger, logManager} from "./logger";
 
 export abstract class Vault<T> {
     protected constructor(public name: string) {}

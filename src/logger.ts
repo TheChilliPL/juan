@@ -114,3 +114,8 @@ export class Logger {
         this.log(LogLevel.FATAL, message, ...args);
     }
 }
+
+export let logManager: LogManager = new LogManager();
+logManager.aggregators.push(
+    new ConsoleAggregator()
+);

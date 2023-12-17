@@ -1,6 +1,8 @@
 import * as fs from "fs/promises";
 import * as Utils from "./utils";
 import * as Discord from "discord.js";
+import {Logger} from "./logger";
+import {logManager} from "./logger";
 
 export interface LocaleInfo {
     name: string
@@ -12,6 +14,8 @@ export interface LocalesInfo {
 
 export let localesInfo: LocalesInfo;
 export let localeData: Record<string, Record<string, string>> = {};
+
+let localizationLogger = new Logger(logManager, "Localization");
 
 export async function initLocales() {
     let localesFile = await fs.readFile("localization/locales.json");
@@ -70,7 +74,9 @@ export function getString(
     }
 
     if(unprocessed == null) {
-        throw new Error(`Couldn't find key ${key} in default locale.`);
+        // throw new Error(`Couldn't find key ${key} in default locale.`);
+        localizationLogger.warn(`Couldn't find key ${key} in default locale.`);
+        return `[${key}]`;
     }
 
     return processString(unprocessed, localeId, options?.placeholders);

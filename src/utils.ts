@@ -78,7 +78,7 @@ export function canReceiveMessageContent(): boolean {
     return false;
 }
 
-export function sleep(ms: number) {
+export function sleep(ms: number): Promise<void> {
     return new Promise(resolve => {
         setTimeout(resolve, ms);
     });

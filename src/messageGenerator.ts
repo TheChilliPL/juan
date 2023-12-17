@@ -1,6 +1,8 @@
 import * as Discord from "discord.js";
-import {Logger} from "./logger";
-import {logManager} from "./bot";
+import {Logger, logManager} from "./logger";
+import {Future} from "./concurrency/future";
+import {scheduler} from "./bot";
+import {Priority, PriorityConstants} from "./concurrency/scheduler";
 
 export interface MessageGeneratorOptions {
     limit?: number;
@@ -8,6 +10,7 @@ export interface MessageGeneratorOptions {
     after?: Discord.Snowflake;
     cache?: boolean;
     filter?: (message: Discord.Message) => boolean;
+    priority?: Priority;
 }
 
 export async function* generateMessages(manager: Discord.MessageManager, options: MessageGeneratorOptions = {}): AsyncGenerator<Discord.Message, void, void> {
@@ -20,6 +23,7 @@ export async function* generateMessages(manager: Discord.MessageManager, options
     let after = options.after;
     let cache = options.cache ?? false;
     let filter = options.filter ?? (() => true);
+    let priority = options.priority ?? PriorityConstants.Low;
 
     while (remaining > 0) {
         let fetchOptions: Discord.FetchMessagesOptions = {
@@ -28,8 +32,12 @@ export async function* generateMessages(manager: Discord.MessageManager, options
             after,
             cache
         };
-        logger.verbose("Fetching messages with options: {0}", fetchOptions);
-        let messages = await manager.fetch(fetchOptions);
+        let messagesFuture = new Future(async () => {
+            return await manager.fetch(fetchOptions);
+        });
+        scheduler.schedule(messagesFuture, priority);
+        let messages = await messagesFuture;
+        // let messages = await manager.fetch(fetchOptions);
         logger.verbose("Fetched {0} messages", messages.size);
 
         if (messages.size === 0) return;

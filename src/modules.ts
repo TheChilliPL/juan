@@ -1,7 +1,7 @@
 import * as Discord from "discord.js";
 import {ApplicationCommandData} from "discord.js";
-import {Logger} from "./logger";
-import {client, logManager} from "./bot";
+import {Logger, logManager} from "./logger";
+import {client} from "./bot";
 
 export class BotModuleManager {
     protected logger: Logger = new Logger(logManager, "ModuleManager");
@@ -48,7 +48,9 @@ export class BotModuleManager {
         return Promise.all(this.modules.map(async module => {
             this.logger.info("Initializing module {0}...", module);
             await module.init();
-        }));
+        })).then(() => {
+            this.logger.info("All modules initialized.");
+        });
     }
 }
 
