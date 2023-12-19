@@ -36,7 +36,7 @@ export class RemoveCategoryModule extends BotModule {
 
             if (!interaction.memberPermissions?.has(Discord.PermissionFlagsBits.Administrator)) {
                 await interaction.reply({
-                    content: getString("messages.remove-category.no_permissions", getLocaleFor(interaction))!,
+                    content: getString("messages.no_permission", getLocaleFor(interaction))!,
                     ephemeral: true
                 });
                 return;
@@ -109,7 +109,7 @@ export class RemoveCategoryModule extends BotModule {
 
             if (!interaction.memberPermissions?.has(Discord.PermissionFlagsBits.Administrator)) {
                 await interaction.update({
-                    content: getString("messages.remove-category.no_permissions", getLocaleFor(interaction))!,
+                    content: getString("messages.no_permission", getLocaleFor(interaction))!,
                     components: []
                 });
                 return;

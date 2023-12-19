@@ -1,5 +1,7 @@
 {
     "messages": {
+        "no_permission": "$[emoji.error] Nie masz uprawnień do użycia tego polecenia.",
+        "api_error": "$[emoji.error] Wystąpił błąd ${ERROR_CODE} podczas wykonywania tego polecenia.\n\n> ${ERROR_NAME}\n> \n> ${ERROR_MESSAGE}",
         "vcmove": {
             "start": "Przemieszczanie członków…",
             "no_members": "$[emoji.warning] Nie znaleziono członków na kanale głosowym.",
@@ -41,11 +43,18 @@
             "translation": "$[emoji.success] Przetłumaczono tekst pomyślnie:\n```\n${TRANSLATION}\n```"
         },
         "vcnotifications": {
-            "no_permission": "$[emoji.error] Nie masz uprawnień do użycia tego polecenia.",
             "enabled": "$[emoji.success] Włączono powiadomienia kanału głosowego.",
             "disabled": "$[emoji.success] Wyłączono powiadomienia kanału głosowego.",
             "joined": "$[emoji.vc_join] ${USER} dołączył do ${CHANNEL}.",
             "left": "$[emoji.vc_leave] ${USER} opuścił ${CHANNEL}."
+        },
+        "server-lang": {
+            "get": {
+                "response": "$[emoji.success] Obecny język serwera to `${LANG}`."
+            },
+            "set": {
+                "success": "$[emoji.success] Ustawiono język serwera na `${LANG}`."
+            }
         }
     },
     "commands": {

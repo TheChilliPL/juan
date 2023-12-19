@@ -46,6 +46,15 @@ export interface GetStringOptions {
 
 export function getString(
     key: string,
+    localeId?: string | undefined
+): string;
+export function getString(
+    key: string,
+    localeId: string | undefined,
+    options: Omit<GetStringOptions, "fallback">
+): string;
+export function getString(
+    key: string,
     localeId: string | undefined,
     options: GetStringOptions & { fallback: true }
 ): string;

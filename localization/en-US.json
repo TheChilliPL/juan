@@ -7,6 +7,8 @@
         "vc_leave": "🟥"
     },
     "messages": {
+        "no_permission": "$[emoji.error] You don't have permission to use this command.",
+        "api_error": "$[emoji.error] Error ${ERROR_CODE} occurred while executing the command.\n> ${ERROR_NAME}\n> \n> ${ERROR_MESSAGE}",
         "vcmove": {
             "start": "Moving members…",
             "no_members": "$[emoji.warning] No members found in the voice channel.",
@@ -49,11 +51,18 @@
             "translation": "$[emoji.success] Successfully translated the text:\n```\n${TRANSLATION}\n```"
         },
         "vcnotifications": {
-            "no_permission": "$[emoji.error] You don't have permission to use this command.",
             "enabled": "$[emoji.success] Voice channel notifications enabled.",
             "disabled": "$[emoji.success] Voice channel notifications disabled.",
             "joined": "$[emoji.vc_join] ${USER} has joined ${CHANNEL}.",
             "left": "$[emoji.vc_leave] ${USER} has left ${CHANNEL}."
+        },
+        "server-lang": {
+            "get": {
+                "response": "$[emoji.success] The current language of the guild is `${LANG}`."
+            },
+            "set": {
+                "success": "$[emoji.success] Successfully changed the language to `${LANG}`."
+            }
         }
     },
     "commands": {
@@ -130,6 +139,26 @@
                 "enable": {
                     "name": "enable",
                     "description": "Whether to enable or disable voice channel notifications."
+                }
+            }
+        },
+        "server-lang": {
+            "name": "server-lang",
+            "description": "Gets or sets the current language of the guild.",
+            "subcommands": {
+                "get": {
+                    "name": "get",
+                    "description": "Gets the current language of the guild."
+                },
+                "set": {
+                    "name": "set",
+                    "description": "Sets the language of the guild.",
+                    "options": {
+                        "lang": {
+                            "name": "lang",
+                            "description": "The language code to change to."
+                        }
+                    }
                 }
             }
         }

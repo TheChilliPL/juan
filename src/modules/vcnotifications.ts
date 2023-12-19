@@ -87,7 +87,7 @@ export class VCNotificationsModule extends BotModule {
 
             if (!channel.permissionsFor(interaction.user)?.has(Discord.PermissionFlagsBits.ManageChannels)) {
                 await interaction.reply({
-                    content: getString("messages.vcnotifications.no_permission", getLocaleFor(interaction))
+                    content: getString("messages.no_permission", getLocaleFor(interaction))
                 });
                 return;
             }

@@ -1,5 +1,7 @@
 {
     "messages": {
+        "no_permission": "$[emoji.error] No tienes permiso para usar este comando.",
+        "api_error": "$[emoji.error] Ha ocurrido un error ${ERROR_CODE} al ejecutar el comando.\n> ${ERROR_NAME}\n> \n> ${ERROR_MESSAGE}",
         "vcmove": {
             "start": "Moviendo miembros…",
             "no_members": "$[emoji.warning] No se encontró ningunos miembros para mover.",
@@ -42,11 +44,18 @@
             "translation": "$[emoji.success] Se ha traducido el texto correctamente:\n```\n${TRANSLATION}\n```"
         },
         "vcnotifications": {
-            "no_permission": "$[emoji.error] No tienes permiso para usar este comando.",
             "enabled": "$[emoji.success] Notificaciones del canal activadas.",
             "disabled": "$[emoji.success] Notificaciones del canal desactivadas.",
             "joined": "$[emoji.vc_join] ${USER} se ha unido a ${CHANNEL}.",
             "left": "$[emoji.vc_leave] ${USER} ha salido de ${CHANNEL}."
+        },
+        "server-lang": {
+            "get": {
+                "response": "$[emoji.success] El idioma del servidor es `${LANG}`."
+            },
+            "set": {
+                "success": "$[emoji.success] El idioma del servidor ha sido cambiado a `${LANG}`."
+            }
         }
     },
     "commands": {
@@ -123,6 +132,26 @@
                 "enable": {
                     "name": "activar",
                     "description": "Si activar o desactivar las notificaciones."
+                }
+            }
+        },
+        "server-lang": {
+            "name": "idioma-del-servidor",
+            "description": "Muestra o cambia el idioma del servidor.",
+            "subcommands": {
+                "get": {
+                    "name": "mostrar",
+                    "description": "Muestra el idioma del servidor."
+                },
+                "set": {
+                    "name": "cambiar",
+                    "description": "Cambia el idioma del servidor.",
+                    "options": {
+                        "lang": {
+                            "name": "idioma",
+                            "description": "El idioma a que cambiar."
+                        }
+                    }
                 }
             }
         }
